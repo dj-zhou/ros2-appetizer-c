@@ -1,27 +1,19 @@
-#include <rclc/rclc.h>
-#include <std_msgs/msg/int32.h>
-#include <stdio.h>
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 
-typedef std_msgs__msg__Int32 Int32;
-
-void callback(const void* void_message) {
-    const Int32* message = ( const Int32* )void_message;
-    printf("Got number: %d\n", message->data);
+void chatterCallback(const std_msgs::msg::String::SharedPtr msg) {
+    std::cout << "I heard: [" << msg->data << "]" << std::endl;
 }
 
-int main(int argc, char** argv) {
-    rclc_init(argc, argv);
+int main(int argc, char* argv[]) {
+    rclcpp::init(argc, argv);
 
-    rclc_node_t* node = rclc_create_node("listener");
+    auto node = rclcpp::Node::make_shared("listener");
 
-    rclc_subscription_t* subscription = rclc_create_subscription(
-        node, ROSIDL_GET_MESSAGE_TYPE_SUPPORT(std_msgs, Int32), "chatter",
-        callback, 7, false);
+    auto chatter_sub = node->create_subscription<std_msgs::msg::String>(
+        "chatter", 10, &chatterCallback);
 
-    rclc_spin_node(node);
-
-    rclc_destroy_subscription(subscription);
-    rclc_destroy_node(node);
+    rclcpp::spin(node);
 
     return 0;
 }

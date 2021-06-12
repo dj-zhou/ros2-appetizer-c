@@ -40,22 +40,22 @@ install(TARGETS talker
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# # --------------------------------
-# add_executable(
-#   listener
-#   "src/listener-node.c"
-# )
+# --------------------------------
+add_executable(
+  listener
+  "src/listener-node.cpp"
+)
 
-# ament_target_dependencies(
-#   listener
-#   rclcpp
-#   std_msgs
-#   std_srvs
-# )
+ament_target_dependencies(
+  listener
+  rclcpp
+  std_msgs
+  std_srvs
+)
 
-# install(TARGETS listener
-#   DESTINATION lib/${PROJECT_NAME}
-# )
+install(TARGETS listener
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
