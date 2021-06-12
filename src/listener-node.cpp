@@ -6,7 +6,7 @@
 using namespace std::chrono_literals;
 using namespace rclcpp;
 
-Client<std_srvs::srv::Empty>::SharedPtr client;
+static Client<std_srvs::srv::Empty>::SharedPtr client;
 
 void chatterCallback(const std_msgs::msg::String::SharedPtr msg) {
     std::cout << "I heard: [" << msg->data << "]" << std::endl;
@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
     auto chatter_sub = node->create_subscription<std_msgs::msg::String>(
         "/chatter", 10, &chatterCallback);
     auto timer = node->create_wall_timer(5s, &timerCallback);
-    client     = node->create_client<std_srvs::srv::Empty>("toggle");
+    client     = node->create_client<std_srvs::srv::Empty>("/toggle");
 
     rclcpp::spin(node);
 

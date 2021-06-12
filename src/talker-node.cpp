@@ -2,7 +2,7 @@
 #include "std_msgs/msg/string.hpp"
 #include "std_srvs/srv/empty.hpp"
 
-bool talk_style;
+static bool talk_style;
 
 void serviceCallback(
     const std::shared_ptr<std_srvs::srv::Empty::Request> request,
