@@ -1,7 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_srvs/srv/empty.hpp"
-#include <iostream>
 
 using namespace std::chrono_literals;
 using namespace rclcpp;
@@ -9,12 +8,15 @@ using namespace rclcpp;
 static Client<std_srvs::srv::Empty>::SharedPtr client;
 
 void chatterCallback(const std_msgs::msg::String::SharedPtr msg) {
-    std::cout << "I heard: [" << msg->data << "]" << std::endl;
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Received a string: '%s'",
+                msg->data.c_str());
 }
 
 void timerCallback() {
     auto request = std::make_shared<std_srvs::srv::Empty::Request>();
-    auto result  = client->async_send_request(request);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+                "Calls a <std_srvs::srv::Empty> request");
+    auto result = client->async_send_request(request);
     ( void )result;
 }
 

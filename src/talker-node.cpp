@@ -9,6 +9,8 @@ void serviceCallback(
     std::shared_ptr<std_srvs::srv::Empty::Response> response) {
     ( void )request;
     ( void )response;
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+                "Received a <std_srvs::srv::Empty> request");
     talk_style = !talk_style;
 }
 
