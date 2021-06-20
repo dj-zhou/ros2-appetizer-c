@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ros2-appetizer-c)
+project(ros2_appetizer_c)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -26,7 +26,7 @@ include_directories(./include/)
 # --------------------------------
 add_executable(
   talker
-  "src/talker-node.cpp"
+  "src/talker_node.cpp"
 )
 
 ament_target_dependencies(
@@ -43,7 +43,7 @@ install(TARGETS talker
 # --------------------------------
 add_executable(
   listener
-  "src/listener-node.cpp"
+  "src/listener_node.cpp"
 )
 
 ament_target_dependencies(
